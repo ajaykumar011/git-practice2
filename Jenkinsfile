@@ -5,15 +5,15 @@ pipeline {
         timestamps()
     }
     
-    environment {
+   // environment {
     //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
-    IMAGE = readMavenPom().getArtifactId()
-    VERSION = readMavenPom().getVersion()
-  }
+    //IMAGE = readMavenPom().getArtifactId()
+    //VERSION = readMavenPom().getVersion()
+  //}
     
     stages {
         
-        stage('Environment') {
+        stage('BuildInfo') {
             steps {
                 echo "Running Buid num: ${env.BUILD_ID} on Jenkins ${env.JENKINS_URL}"
                 echo "BUILD_NUMBER :: ${env.BUILD_NUMBER}"
