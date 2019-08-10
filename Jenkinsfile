@@ -1,18 +1,17 @@
 pipeline {
-    agent any
-  
-    options {
+  // agent any
+  options {
         timestamps()
     }
-    
-   // environment {
-    //Use Pipeline Utility Steps plugin to read information from pom.xml into env variables
-    //IMAGE = readMavenPom().getArtifactId()
-    //VERSION = readMavenPom().getVersion()
-  //}
-    
-    stages {
-        
+
+  agent { docker { image 'maven:3.3.3' } }
+   stages {
+       stage('build') {
+           steps {
+               sh 'mvn --version'
+           }
+       }
+
         stage('BuildInfo') {
             steps {
                 echo "Running Buid num: ${env.BUILD_ID} on Jenkins ${env.JENKINS_URL}"
@@ -29,19 +28,12 @@ pipeline {
                 echo "JENKINS_HOME :: ${env.JENKINS_HOME}"
                 echo "JENKINS_URL :: ${env.JENKINS_URL}"
                 echo "BUILD_URL ::${env.BUILD_URL}"
-                echo "JOB_URL :: ${env.JOB_URL}"               
-                              
+                echo "JOB_URL :: ${env.JOB_URL}"
+
             }
         }
-        
-        stage('Build Version') {
-            steps {
-                echo 'Building..'
-                sh 'mvn -v'
-            }
-		}
-            
-       
+
+
         stage('Test') {
             steps {
                 echo 'Testing..'
