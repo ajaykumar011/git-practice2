@@ -6,7 +6,7 @@ pipeline {
         
         stage('Information') {
             steps {
-                echo "Running ${env.BUILD_ID} on ${env.JENKINS_URL}"
+                echo "Running Buid number ${env.BUILD_ID} on Jenkins ${env.JENKINS_URL}"
             }
         }
         
