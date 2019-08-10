@@ -4,7 +4,7 @@ pipeline {
     
     stages {
         
-        stage('Information') {
+        stage('Environment') {
             steps {
                 echo "Running Buid num: ${env.BUILD_ID} on Jenkins ${env.JENKINS_URL}"
                 echo "BUILD_NUMBER :: ${env.BUILD_NUMBER}"
