@@ -3,27 +3,12 @@ pipeline {
   options {
         timestamps()
     }
-    agent { label "docker" }    //Run everything on an agent with the docker daemon
-    environment {
-        IMAGE = readMavenPom().getArtifactId()    //Use Pipeline Utility Steps
-        VERSION = readMavenPom().getVersion()
-    }
-    stages {
-        stage('Build') {
-            agent {
-                docker {
-                    reuseNode true    //reuse the workspace on the agent defined at top-level\
-                    image 'maven:3.5.0-jdk-8'
-                }
-            }
-            steps {
-                sh 'mvn -VERSION'
-                sh 'mvn clean install'
-                junit(allowEmptyResults: true, testResults: '**/target/surefire-reports/TEST-*.xml')
-            }
-        }
 
-
+  agent { docker { image 'maven:3.3.3' } }
+   stages {
+       stage('build') {
+           steps {
+               sh 'mvn --version'
            }
        }
 
@@ -47,7 +32,6 @@ pipeline {
 
             }
         }
-
 
 
         stage('Test') {
