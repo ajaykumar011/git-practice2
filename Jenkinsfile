@@ -31,6 +31,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..'
+                sh 'mvn -v'
             }
         }
         stage('Test') {
